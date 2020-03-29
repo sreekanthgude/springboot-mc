@@ -8,7 +8,9 @@ import com.example.admin.security.CognitoService;
 import com.example.admin.service.UserDetailsImpl;
 import com.example.admin.utility.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,6 +42,17 @@ public class AuthorizationController {
     @PostMapping("/verifyUser")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
+
+        if(loginRequest !=null) {
+            if(loginRequest.getUsername() == null || "".equals(loginRequest.getUsername())){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("UserName required!!");
+            };
+            if(loginRequest.getPassword() == null || "".equals(loginRequest.getPassword())){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Password required!!");
+            };
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 

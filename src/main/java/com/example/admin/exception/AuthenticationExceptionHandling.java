@@ -16,8 +16,6 @@ public class AuthenticationExceptionHandling implements AuthenticationEntryPoint
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
         System.out.println("authException---->"+authException.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not found in the system");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User is not allowed on application and contact admin for getting the used added.");
     }
-
-
 }

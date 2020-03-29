@@ -51,14 +51,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(authenticationExceptionHandling).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/verifyUser/**").permitAll()
-                .antMatchers("/api/addUser/**").permitAll()
-                .antMatchers("/h2/**").permitAll()
-                .anyRequest().authenticated();
+                .authorizeRequests().antMatchers("/api/verifyUser/**").hasAnyAuthority("USER","ADMIN","DEFAULT")
+                .antMatchers("/api/addUser/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/h2/**").permitAll().anyRequest().authenticated();;
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().frameOptions().disable(); // For opening the h2 console in browser
     }
-
 
     @Override
     @Bean

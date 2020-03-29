@@ -1,4 +1,4 @@
-# springboot-mc
+# springboot-admin-microservice
 Spring boot admin micro service for verifying and adding user with role based.
 
 Used Technical Stack:

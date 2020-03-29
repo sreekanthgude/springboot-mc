@@ -54,5 +54,14 @@ AWS Cognito storage:
 2) Create a IAM user and download the credentials and configure in .aws folder as mentioned above.
 3) Create a User pool and client and configure those in application.properties file.
 
+DB Scripts:
+
+Created three tables:
+
+users -> for storing the user info
+roles -> for storing roles(currently added only USER,ADMIN,DEFAULT roles)
+user_roles -> for maintaing the relation between user and roles.
+
+
 
 
